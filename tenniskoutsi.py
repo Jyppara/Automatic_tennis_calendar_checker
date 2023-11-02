@@ -18,8 +18,10 @@ def check_selected_day(date):
         time = slot.find_previous("th", class_="datarow").get_text()
         hours, minutes = map(int, time.split(" - ")[0].split(":"))
         if date_object.day == datetime.now().day:
-            if hours < datetime.now().hour:
-                continue
+            if hours > datetime.now().hour:
+                print("\tVapaa vuoro kello " + time + " varattavissa.")
+                vapaat_vuorot.append((time, date))
+                count += 1
         elif date_object.weekday() < 5:
             if hours >= 16:
                 print("\tVapaa vuoro kello " + time + " varattavissa.")
