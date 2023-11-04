@@ -1,0 +1,6 @@
+Flask
+Gunicorn
+Datetime
+BeautifulSoup
+time
+selenium
