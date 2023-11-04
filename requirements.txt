@@ -2,5 +2,4 @@ Flask
 Gunicorn
 Datetime
 BeautifulSoup4
-time
 selenium
