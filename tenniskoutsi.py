@@ -70,8 +70,9 @@ def translate_to_finnish(viikonpaiva):
 
 @app.route("/")
 def main_loop():
-    logo_text = " _____                _     _               _       _\n|_   _|__ _ __  _ __ (_)___| | _____  _   _| |_ ___(_)\n  | |/ _ \ '_ \| '_ \| / __| |/ / _ \| | | | __/ __| |\n  | |  __/ | | | | | | \__ \   < (_) | |_| | |_\__ \ |\n  |_|\___|_| |_|_| |_|_|___/_|\_\___/ \__,_|\__|___/_|\n"
+    logo_text = " _____                _     _               _       _\n|_   _|__ _ __  _ __ (_)___| | _____  _   _| |_ ___(_)\n  | |/ _ \ '_ \| '_ \| / __| |/ / _ \| | | | __/ __| |\n  | |  __/ | | | | | | \__ \   < (_) | |_| | |_\__ \ |\n  |_|\___|_| |_|_| |_|_|___/_|\_\___/ \__,_|\__|___/_|"
     print(logo_text)
+    print(' "Keskity pelaamiseen eläkä varaamiseen." -Tenniskoutsi™\n')
     while True:
         url = "https://varaus.hukka.net/index.php?func=mod_rc_v2"
         vapaat_vuorot = []
@@ -87,7 +88,11 @@ def main_loop():
                 check_selected_day(option.get("value"), vapaat_vuorot, soup)
 
             if len(vapaat_vuorot) > 0:
-                message = "\nVAPAITA VUOROJA LÖYTYI SEURAAVASTI:\n \n"
+                message = (
+                    "\nHaku suoritettu kello "
+                    + datetime.now().strftime("%H:%M")
+                    + "\n\nVAPAITA VUOROJA LÖYTYI SEURAAVASTI:\n \n"
+                )
                 for vuoro in vapaat_vuorot:
                     kellonaika, pvm = vuoro
                     viikonpaiva = datetime.strptime(pvm, "%d.%m.%Y")
@@ -113,5 +118,6 @@ def main_loop():
                 b = "Yritetään uudelleen " + str(5 - i) + " minuutin kuluttua. "
                 print(b, end="\r")
                 time.sleep(60)
+
 
 main_loop()

@@ -1,6 +1,5 @@
 Flask
 Gunicorn
-Datetime
 BeautifulSoup4
 selenium
 requests
