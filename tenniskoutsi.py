@@ -88,8 +88,7 @@ def main():
     while True:
         url = "https://varaus.hukka.net/index.php?func=mod_rc_v2"
         free_shifts = []
-        # Avaa selain ja lataa sivu
-        response = requests.get(url)
+        response = requests.get(url) 
         if response.status_code == 200:
             html = response.text
             soup = BeautifulSoup(html, "html.parser")
