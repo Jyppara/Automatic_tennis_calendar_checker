@@ -1,5 +1,0 @@
-Ideas:
-    User can select if office hours are excluded or not
-    User can select the refresh rate of new searches
-    Add author comments to the start
-    Anna käyttäjän valita tunnit minkä mukaan ohjelma poislukee vuoroja
