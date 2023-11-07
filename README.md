@@ -1,4 +1,4 @@
-#   :tennis: TENNISKOUTSI- Automatic tennis calendar checker :tennis:
+#   :tennis:TENNISKOUTSI- Automatic tennis calendar checker:tennis:
 
 TENNISKOUTSI is player's personal Python assistant for booking the most sought-after tennis court hours without the hassle of constantly checking
 the court's availability calendar. Player simply launches the application on his/her computer, and it will automatically scan the reservation calendar for
