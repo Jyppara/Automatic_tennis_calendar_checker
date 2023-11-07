@@ -1,13 +1,9 @@
 from datetime import datetime, timedelta
 import time
-from selenium import webdriver
-from selenium.webdriver.support.ui import Select
-from selenium.webdriver.common.by import By
 import requests
 from bs4 import BeautifulSoup
-import smtplib
-from email.mime.text import MIMEText
-from flask import Flask, request, render_template
+from flask import Flask
+from decouple import config
 
 app = Flask(__name__)
 
@@ -26,9 +22,12 @@ def check_selected_day(date, free_shifts, soup):
     # weekend or weekday and prints the free slots accordingly.
     date_object = datetime.strptime(date, "%d.%m.%Y")
     free_hours = soup.find_all("td", class_="state_white res_success")
+    # the class name "state_white res_success" is the class name for the free
+    # slots. The class name can be found by inspecting the HTML element.
     count = 0
     print("Tarkistetaan " + date + " vapaita vuoroja.")
     for slot in free_hours:
+        # check the time of the free slot
         time = slot.find_previous("th", class_="datarow").get_text()
         hours, minutes = map(int, time.split(" - ")[0].split(":"))
         if date_object.day == datetime.now().day:  # today
@@ -86,13 +85,15 @@ def main():
     print(logo_text)
     print(' "Keskity pelaamiseen eläkä varaamiseen." -Tenniskoutsi™\n')
     while True:
-        url = "https://varaus.hukka.net/index.php?func=mod_rc_v2"
+        url = config("URL")
         free_shifts = []
-        response = requests.get(url) 
+        response = requests.get(url)
         if response.status_code == 200:
+            # check the next 14 days for free slots
             html = response.text
             soup = BeautifulSoup(html, "html.parser")
             for option in soup.find_all("option"):
+                # get the date from the option tag
                 response = requests.get(url + "&pageId=12&cdate=" + option.get("value"))
                 html = response.text
                 soup = BeautifulSoup(html, "html.parser")
