@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 # This program checks for free tennis court slots from the certain tennis court
 # in Finland. It uses Selenium to open the browser and BeautifulSoup to parse
-# the HTML. It checks the slots for the next 14 days and prints the results.
+# the HTML. It checks the slots from 12 days and prints the results.
 # It checks the slots every 10 minutes and prints the results if there are any
 # free slots available.
 
@@ -89,10 +89,12 @@ def main():
         free_shifts = []
         response = requests.get(url)
         if response.status_code == 200:
-            # check the next 14 days for free slots
+            # check the next 11 days for free slots
             html = response.text
             soup = BeautifulSoup(html, "html.parser")
-            for option in soup.find_all("option"):
+            options = soup.find_all("option")
+            # choose only the first 12 days
+            for option in options[0:12]:
                 # get the date from the option tag
                 response = requests.get(url + "&pageId=12&cdate=" + option.get("value"))
                 html = response.text
