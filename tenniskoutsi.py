@@ -3,7 +3,6 @@ import time
 import requests
 from bs4 import BeautifulSoup
 from flask import Flask
-from decouple import config
 
 app = Flask(__name__)
 
@@ -85,7 +84,7 @@ def main():
     print(logo_text)
     print(' "Keskity pelaamiseen eläkä varaamiseen." -Tenniskoutsi™\n')
     while True:
-        url = config("URL")
+        url = "secret_url"
         free_shifts = []
         response = requests.get(url)
         if response.status_code == 200:
